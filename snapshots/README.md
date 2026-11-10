@@ -4,7 +4,13 @@ Dated exports of the Machinations diagram, kept next to [CHANGELOG.md](../CHANGE
 
 ## Status
 
-Latest: [2026-11-10-after-play-677](2026-11-10-after-play-677/) (raw diagram JSON and XML). Google Sheets CSV export is still pending: the Deploy tab needs at least one Lever marked before it exports, which changes the diagram.
+Raw diagram JSON snapshots (route 2 below) taken from a signed-in session, owner email redacted:
+
+- [2026-11-10-after-play-677](2026-11-10-after-play-677/): raw diagram JSON and XML after the import-pool fix.
+- [2026-11-10-before-fix4-raw.json](2026-11-10-before-fix4-raw.json): state after Play 677, before Fix 4.
+- [2026-11-10-after-fix4-raw.json](2026-11-10-after-fix4-raw.json): latest, state after Fix 4 and Play 678. The `xml` field matches the live diagram byte for byte (sha256 `1e03dea7...af67e`). The file was rebuilt from the before snapshot plus the live changes, so non-model metadata may differ slightly from the live response.
+
+Google Sheets CSV export is still pending: the Deploy tab needs at least one Lever marked before it exports, which changes the diagram.
 
 ## How to take one
 
