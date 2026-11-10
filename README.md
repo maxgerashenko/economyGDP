@@ -8,7 +8,8 @@ One resource (money) circulates between households, business, government, invest
 
 - Diagram (Machinations): originally titled "Willy Wonka Factory Trip" (tutorial leftover), 60 steps, interval 5.
 - Import-pool blockage fixed (Play 676 to 677). Households still fall to about 4 because 37 of 100 money leaks to World and nothing returns.
-- Open fixes 4 to 7 are planned in [docs/fix-plan.md](docs/fix-plan.md). They are not applied.
+- Fix 4 (return World money) applied 2026-11-10: total money stays 100 and households end at about 24 in Play 678.
+- Open fixes 5 to 7 are planned in [docs/fix-plan.md](docs/fix-plan.md). They are not applied.
 
 ## Contents
 

@@ -1,10 +1,12 @@
 # Fix plan for root causes 4 to 7
 
-Not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
+Fix 4 applied 2026-11-10 (see below). Fixes 5 to 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
 
-Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 to 7 open.
+Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 to 7 open.
 
 ## Fix 4: return World money
+
+Status: applied and checked in Play 678 (30 steps). New connections got IDs #1301 (#642 to #790) and #1302 (#947 to #484). Total money stayed 100 and INITIAL stayed 100; households ended at 24 (they fall to 0 at step 1 first); World trade pool 0, World interest and export pools 1 and 3 at the end; no runtime errors. Only one Play, so precision is low. Details in [CHANGELOG.md](../CHANGELOG.md).
 
 Goal: total money stays 100. Risk: low, three edits, no new nodes.
 
