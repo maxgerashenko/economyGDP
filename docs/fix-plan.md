@@ -1,8 +1,8 @@
 # Fix plan for root causes 4 to 7
 
-Fix 4 applied 2026-11-10 (see below). Fixes 5 to 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
+Fixes 4 and 5 applied 2026-11-10 (see below). Fixes 6 and 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
 
-Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 to 7 open.
+Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 (debt and interest) applied 2026-11-10, Play 688, interest payment not yet proven. 6 and 7 open.
 
 ## Fix 4: return World money
 
@@ -18,12 +18,14 @@ Check: households settle above 0; World pools near 0 each step; INITIAL = sum of
 
 ## Fix 5: debt grows, interest follows debt
 
+Status: applied 2026-11-10, checked in Plays 686 to 689. New elements: Source #1501, flows #1506 and #1507, register #1508, state connections #1303 and #1304. The plan's `DEPT` was a typo for the DEBT register #710, and the formula that works is `a*economy[2,2]/95` (`a` is the name of the input connection #1303). DEBT rose 95 to 155 in 30 steps; Interest weight about 5.4; Total 143 (the register `gdp+base+global`, not every pool). Open: interest pool #851 drains every step, so 0 at step end does not prove that interest is paid; a cumulative counter is needed. Gate weights now sum to about 102%. Steps per play is now 30. Details in [CHANGELOG.md](../CHANGELOG.md).
+
 Goal: government borrows, DEBT rises, interest scales with it. Adds new money, so growth. Risk: medium.
 
 1. Add Source `Borrowing`, trigger auto.
 2. Flow Borrowing to Government #585, number = deficit per step (start with 2).
 3. Flow Borrowing to DEBT #709, same number.
-4. Register `Interest weight`, formula `DEPT*economy[2,2]/95`, input state connection from DEBT register #710.
+4. Register `Interest weight`, formula `a*economy[2,2]/95` (written `DEPT*...` in the first plan), input state connection from DEBT register #710.
 5. State connection `Interest weight` to flow #824 (Government gate to interest pool), type overwrite.
 
 Check: DEBT climbs 2 per step; interest rises; total grows. Risk: gate #1011 outputs are % labels; overwriting with a plain number may break the split, then change all four outputs to plain weights. Keep DEBT out of Total (same resource as money).

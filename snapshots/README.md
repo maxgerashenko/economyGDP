@@ -10,6 +10,8 @@ Raw diagram JSON snapshots (route 2 below) taken from a signed-in session, owner
 - [2026-11-10-before-fix4-raw.json](2026-11-10-before-fix4-raw.json): state after Play 677, before Fix 4.
 - [2026-11-10-after-fix4-raw.json](2026-11-10-after-fix4-raw.json): latest, state after Fix 4 and Play 678. The `xml` field matches the live diagram byte for byte (sha256 `1e03dea7...af67e`). The file was rebuilt from the before snapshot plus the live changes, so non-model metadata may differ slightly from the live response.
 
+No snapshot was taken for Fix 5 (2026-11-10): copying the raw diagram from the signed-in browser to disk did not work in that session. The live diagram has 151 cells; it adds #1303, #1304, #1501, #1506, #1507 and #1508 to the after-Fix-4 snapshot. Take a fresh raw snapshot from a signed-in session.
+
 Google Sheets CSV export is still pending: the Deploy tab needs at least one Lever marked before it exports, which changes the diagram.
 
 ## How to take one
