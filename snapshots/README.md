@@ -4,7 +4,7 @@ Dated exports of the Machinations diagram, kept next to [CHANGELOG.md](../CHANGE
 
 ## Status
 
-No snapshot has been committed yet. Downloading needs a signed-in Machinations session, which the automated session that wrote these docs could not reach. The first snapshot (state after Play 677) is pending.
+Latest: [2026-11-10-after-play-677](2026-11-10-after-play-677/) (raw diagram JSON and XML). Google Sheets CSV export is still pending: the Deploy tab needs at least one Lever marked before it exports, which changes the diagram.
 
 ## How to take one
 

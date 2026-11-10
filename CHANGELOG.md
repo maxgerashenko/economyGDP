@@ -2,6 +2,10 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
+## 2026-11-10 - Snapshot after Play 677
+
+Added [snapshots/2026-11-10-after-play-677](snapshots/2026-11-10-after-play-677/): raw diagram JSON and XML. No diagram changes. This is the first file backup, so the state before the import-pool fix was never saved.
+
 ## 2026-11-10 - Import pool fix (Play 676 to Play 677)
 
 Problem: import pool #836 was push-all with two outputs whose amounts were computed from its own content one step late. The pool blocked and never emptied.
