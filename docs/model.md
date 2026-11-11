@@ -6,6 +6,10 @@ Source: saved diagram read on 2026-11-10 (first read, Play 676) plus the Play 67
 
 One resource, money. At the first read: 13 pools, 32 registers, 6 gates, 26 resource connections, 50 state connections. Plus the Play 677 additions: gate #1201, flow #1202.
 
+## Two-step cycle
+
+The diagram is designed as a cycle of two steps. On the first step money leaves the taxpayers (Households and Government) into Spending, Investment, the Import pool and Interest. On the second step Business pays it back out through the tax gates to Households and Government. Pools therefore swing every two steps by design. Compare values at the same phase, or as two-step averages. See [economy-model-review.md](economy-model-review.md).
+
 ## Vocabulary
 
 - Pool: stores money.
