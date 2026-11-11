@@ -57,10 +57,10 @@ flowchart LR
 | Investment | #790 | 21% of household outflow; flows to Business. |
 | Depreciation | n/a | 16% of Business outflow; flows back into Spending. |
 | Import pool | #836 | Push-all. 4% of Government plus 10% of Households. Now feeds the Trade gate. |
-| World (trade) | #642 | Pull pool. Receives the trade share. Never sends money out. |
+| World (trade) | #642 | Push-any (Fix 6). Receives the trade share; sends `economy[2,7]` to Business gate #496 (#1601) and `economy[1,7]-economy[2,7]` to Investment (#1301). |
 | World (interest) | #947 | Push-all. Receives interest, no outflow (open). |
-| Debt | #709 | Fixed at 95, no flows. |
-| Interest | n/a | 3.36% of Government spending, flows to World. |
+| Debt | #709 | Starts at 95. Borrowing source #1501 adds 2 per step. |
+| Interest | #851 | Base weight `economy[2,2]` times debt over starting debt (95), written by register #1508 and state connection #1304 (overwrite) onto flow #824. Flows to World. |
 | Stock | #770 | Dead, connects to nothing. |
 
 ## Gates
