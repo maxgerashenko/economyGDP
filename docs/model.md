@@ -60,7 +60,7 @@ flowchart LR
 | World (trade) | #642 | Push-any (Fix 6). Receives the trade share; sends `economy[2,7]` to Business gate #496 (#1601) and `economy[1,7]-economy[2,7]` to Investment (#1301). |
 | World (interest) | #947 | Push-all. Receives interest, no outflow (open). |
 | Debt | #709 | Starts at 95. Borrowing source #1501 adds 2 per step. |
-| Interest | #851 | Base weight `economy[2,2]` times debt over starting debt (95), written by register #1508 and state connection #1304 (overwrite) onto flow #824. Flows to World. |
+| Interest | #851 | Base weight `economy[2,2]` times debt over starting debt (95), written by register #1508 and state connection #1603 (overwrite, replaced the old #1304) onto flow #824. Flows to World. |
 | Stock | #770 | Dead, connects to nothing. |
 
 ## Gates
