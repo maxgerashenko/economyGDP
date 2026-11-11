@@ -2,7 +2,7 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
-## 2026-11-10 - Fix 5: debt grows, interest follows debt (Play 686 to Play 689)
+## 2026-11-10 - Fix 5: debt grows, interest follows debt (Play 686 to Play 694)
 
 Problem: the DEBT pool #709 was fixed at 95 and had no flows, and the interest the Government pays was a fixed share of its spending (3.36%) that did not depend on debt.
 
@@ -13,7 +13,7 @@ Changes (6 new elements, no deletions):
 - New register #1508 `Interest weight`, passive, formula `a*economy[2,2]/95`. The plan wrote `DEPT*economy[2,2]/95`. The first version used `DEBT`, which did not resolve, so the weight stayed at 0 and the register showed an error badge. A register reads its input under the name of the input connection, and the connection is named `a`, so the formula was changed to `a`.
 - New state connection #1303: DEBT register #710 to Interest weight #1508 (input, variable `a`).
 - New state connection #1304: Interest weight #1508 to flow #824 (Government gate #1011 to interest pool #851), type overwrite.
-- Gate #1011 outputs were not changed: #779 `economy[4,2]%`, #823 `economy[3,2]%`, #824 now overwritten by the weight, #1012 `1%`. The overwrite did not break the split.
+- Gate #1011 outputs were first left as `%` weights (#779 `economy[4,2]%`, #823 `economy[3,2]%`, #824 `economy[2,2]%` overwritten by the weight, #1012 `1%`). This turned out to block interest, see "Later plays" and "Final state" below.
 - The editor "steps per play" setting was changed from 10 to 30 to run the check. It is still 30. Not part of the model logic.
 - Several drags during the edit moved existing labels or connectors (the "Spend ings" label, state connection #712, the DEBT label). Each was undone with undo before the check; the server geometry of #710 and #712 was verified unchanged.
 
@@ -42,6 +42,29 @@ Notes on the result:
 Rollback: Machinations version history 56768102 (the state before Fix 5), or delete #1501, #1506, #1507, #1508, #1303 and #1304.
 
 Snapshots: no raw JSON was exported for this change, because the transfer from the signed-in browser to disk did not work. The latest raw snapshot is still [after Fix 4](snapshots/2026-11-10-after-fix4-raw.json).
+
+Later plays (interest still unproven after Play 689):
+- Interest never reached the pool: the `interest` variable stayed 0. Cause found by test: the overwrite #1304 on a `%`-weights gate output.
+- Play 691: #1304 kept, outputs with `%`: interest 0.
+- Play 693: #1304 deleted (and #851 set passive for the test, later restored to automatic): interest 10 over 30 steps. #1304 was then restored from version history.
+- Play 694: #1304 kept, all four gate outputs changed to plain weights: interest 7 at step 30 (0, then 4 by step 10, then 7), DEBT 155. This is the first Play where interest is paid with the overwrite kept.
+- Play 694 flows still reached Spendings #796 (spend 23), import #836 (import 1) and the #476 side (base 44).
+
+Final state (kept, no further edits planned):
+- #1501 `Borrowing`, #1506, #1507 (2 per step), #1508 `Interest weight` formula `a*economy[2,2]/95`, #1303 DEBT register #710 to #1508 (variable `a`), #1304 overwrite #1508 to #824.
+- Gate #1011 is deterministic with automatic activation. Outputs are now plain weights, no `%`: #779 `economy[4,2]`, #823 `economy[3,2]`, #824 `economy[2,2]` (replaced by Interest weight through #1304), #1012 `1`. Edited by hand in the properties panel. Server check: 151 cells, only those four labels changed.
+- #1012 showed its Lever toggle ON when opened. It was not changed and it is unknown whether it was ON before.
+- Total register #1096 is `gdp+base+global`, not every pool.
+- Steps per play: 30.
+
+Incident: an edit through the Machinations AI (Gemini) panel damaged the diagram. It was restored from version history (the 6:36 PM version). Do not use the AI panel for edits.
+
+Rollback points: version history 56768102 (before Fix 5), and the save made just before the plain-weights edit (no id was noted; it is the save with 151 cells and the `%` labels).
+
+Open items:
+- BASE ends at 44 in Play 694 against about 142 in Play 688, with a strong 2-step oscillation. One play only, so unconfirmed.
+- The interest paid counter was not added.
+- Interest weight #1508 reads 0 on the canvas after a Play. Canvas labels go stale after a Play, so this is not trusted; the variable labels are.
 
 Open after this change:
 - Prove that interest is paid, for example with a cumulative counter register fed by `interest`, or by comparing Rich and household totals with the overwrite #1304 on and off.
