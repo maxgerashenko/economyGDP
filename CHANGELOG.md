@@ -2,6 +2,22 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
+## 2026-11-11 - BASE check after Fix 5 (Play 696 to Play 699, no model change)
+
+Question: BASE #813 ended at 44 in Play 694 against about 142 in Play 688. Is the lower level real, and why?
+
+What was done: Government #585, Rich #484, Spending #796, Investment #790, Depreciation #729 and the interest pool #851 were added to the chart ("Track in charts" in the node right-click menu). This is a chart setting, not a model edit. Plays 697 to 699 ran 30 steps each. Step data was read from the read-only play-steps endpoint.
+
+Findings:
+- The drop is real and deterministic (Plays 694 and 695 are identical). Even-step BASE peaks fall from 77 to 44; odd-step troughs rise from 2 to about 23.
+- The 142 in Play 688 was a stall, not a healthy level. In Play 688 GDP #648 fell from 75 to 0 and Government held 141: the `%` labels on gate #1011 blocked Government spending, so all money piled up in Government, which is part of BASE. After the plain-weights change (Play 694) money circulates again, so BASE swings with the two-step cycle instead of filling up.
+- The swing damps because the Depreciation path (Business, Depreciation #729, Spending #796, Business) takes three steps while the main loop takes two. Money slowly spreads over both phases. Spending keeps a growing leftover at even steps (0 at step 0, 12 at step 12, about 20 at step 30) while BASE peaks fall.
+- Government stays at 13 to 20 and Rich at 8 to 16 for the whole run. They do not hoard money.
+- Checked and ruled out: flow #822 (Spending to Business) is already `all`; Source #1501 Borrowing trigger is already Auto.
+- Open: the sum of the tracked pools (BASE, Depreciation, Investment, Spending, interest pool, World pools via #640 and #948) falls from 100 to about 89 by step 30, but 100 plus 60 borrowed should give 160. The Import pool #836 is not tracked yet. Either the 2 per step on #1506 does not reach circulation, or money is lost in a gate (rounding or weights). Not yet found.
+
+Model changes: none. Rollback point noted before the planned edit: version history, today 4:15 AM group, latest save.
+
 ## 2026-11-10 - Fix 5: debt grows, interest follows debt (Play 686 to Play 694)
 
 Problem: the DEBT pool #709 was fixed at 95 and had no flows, and the interest the Government pays was a fixed share of its spending (3.36%) that did not depend on debt.
@@ -62,7 +78,7 @@ Incident: an edit through the Machinations AI (Gemini) panel damaged the diagram
 Rollback points: version history 56768102 (before Fix 5), and the save made just before the plain-weights edit (no id was noted; it is the save with 151 cells and the `%` labels).
 
 Open items:
-- BASE ends at 44 in Play 694 against about 142 in Play 688, with a strong 2-step oscillation. One play only, so unconfirmed.
+- BASE ends at 44 in Play 694 against about 142 in Play 688. Explained on 2026-11-11 (see the entry above): Play 688 was a stall.
 - The interest paid counter was not added.
 - Interest weight #1508 reads 0 on the canvas after a Play. Canvas labels go stale after a Play, so this is not trusted; the variable labels are.
 
