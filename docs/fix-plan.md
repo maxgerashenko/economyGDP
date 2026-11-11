@@ -1,8 +1,8 @@
 # Fix plan for root causes 4 to 7
 
-Fix 4 applied 2026-11-10 (see below). Fixes 5 to 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
+Fixes 4 and 5 applied 2026-11-10 (see below). Fixes 6 and 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
 
-Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 to 7 open.
+Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 (debt and interest) applied 2026-11-10, Play 688, interest payment not yet proven. 6 and 7 open.
 
 ## Fix 4: return World money
 
@@ -18,15 +18,17 @@ Check: households settle above 0; World pools near 0 each step; INITIAL = sum of
 
 ## Fix 5: debt grows, interest follows debt
 
+Status: applied 2026-11-10, checked in Plays 686 to 694. New elements: Source #1501, flows #1506 and #1507, register #1508, state connections #1303 and #1304. The formula is `a*economy[2,2]/95` (`a` is the name of the input connection #1303). DEBT rose 95 to 155 in 30 steps. Interest is paid only after gate #1011 outputs #779, #823, #824, #1012 were changed to plain weights (no `%`): Play 691 (overwrite with `%`) interest 0, Play 693 (no overwrite) interest 10, Play 694 (overwrite, plain weights) interest 7. Lesson: a modify-value overwrite on a `%`-weights gate output blocks the flow; use plain weights. Open: BASE ends 44 against about 142 in Play 688 with strong oscillation (1 play only); interest paid counter not added; #1012 Lever toggle seen ON, prior state unknown; Interest weight canvas label reads 0 (stale labels). Steps per play is 30. Details in [CHANGELOG.md](../CHANGELOG.md).
+
 Goal: government borrows, DEBT rises, interest scales with it. Adds new money, so growth. Risk: medium.
 
 1. Add Source `Borrowing`, trigger auto.
 2. Flow Borrowing to Government #585, number = deficit per step (start with 2).
 3. Flow Borrowing to DEBT #709, same number.
-4. Register `Interest weight`, formula `DEPT*economy[2,2]/95`, input state connection from DEBT register #710.
+4. Register `Interest weight`, formula `a*economy[2,2]/95` (the first plan wrote `DEPT`, a typo for the DEBT register #710), input state connection from DEBT register #710.
 5. State connection `Interest weight` to flow #824 (Government gate to interest pool), type overwrite.
 
-Check: DEBT climbs 2 per step; interest rises; total grows. Risk: gate #1011 outputs are % labels; overwriting with a plain number may break the split, then change all four outputs to plain weights. Keep DEBT out of Total (same resource as money).
+Check: DEBT climbs 2 per step; interest rises; total grows. Risk (happened): gate #1011 outputs were `%` labels and the overwrite blocked interest; fixed by changing all four outputs to plain weights. Keep DEBT out of Total (same resource as money).
 
 ## Fix 6: exports independent of imports
 
