@@ -2,6 +2,26 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
+## 2026-11-11 - Fix 5b: stop the money leak in the Business gate (Play 700 to Play 701)
+
+Problem: total money stayed near 90 to 100 instead of rising to 160 with borrowing. With every pool charted (Play 700: A #476, AA #561, AAA #484, Government #585, Depreciation #729, Investment #790, Spending #796, Import #836, interest #851, World #947, and World trade via register #640), the sum of all pools fell short of 100 + 2 per step by 4 to 5 on each "back" step. Borrowing did arrive (Government holds 2 at odd steps).
+
+Cause: the Business gate #954 outputs use `%` labels from the sheet column `business`: `economy[1,1]` 7, `economy[2,1]` 16, `economy[3,1]` 52, `economy[4,1]` 20. They add up to 95 (row 6 of the sheet also shows 95). A gate with `%` outputs that sum to less than 100% destroys the rest, so 5% of every Business payout was lost.
+
+Change (4 edits, made by hand in the editor, not with the AI panel): Business gate outputs changed from `%` to plain weights, as on gate #1011 in Fix 5:
+- #598 to Government #585: `economy[1,1]%` to `economy[1,1]`
+- #730 to Depreciation #729: `economy[2,1]%` to `economy[2,1]`
+- #728 to AA Tax #856: `economy[3,1]%` to `economy[3,1]`
+- #956 to AAA tax #841: `economy[4,1]%` to `economy[4,1]`
+
+The sheet was not changed. The shares keep their ratio (each is now its value divided by 95).
+
+Result (Play 701, 30 steps): total money is exactly 100 + 2 per step every step, 160 at step 30, no loss. BASE ends at 102 (50 in Play 700), Government 23, interest paid 14 over 30 steps (4, 3, 4, 3 at steps 9, 16, 23, 29).
+
+Rollback point: version history, today, the 5:07 AM saves (before these 4 edits; the edits are the newer saves in the same group, shown as 5:15 AM).
+
+Seen in the saved diagram before this change, not made in this thread: pools renamed A, AA, AAA (Rich is AAA #484), Depreciation label #741 renamed `Dedrep`, four text cells (#664, #668, #669, #670) deleted, and state connection #1304 (Interest weight overwrites #824) deleted. Without #1304 the interest share no longer follows DEBT; to confirm with Max.
+
 ## 2026-11-11 - BASE check after Fix 5 (Play 696 to Play 699, no model change)
 
 Question: BASE #813 ended at 44 in Play 694 against about 142 in Play 688. Is the lower level real, and why?
@@ -16,7 +36,7 @@ Findings:
 - Checked and ruled out: flow #822 (Spending to Business) is already `all`; Source #1501 Borrowing trigger is already Auto.
 - Interest is paid: interest pool #851 received 4, 3, 1 and 3 at steps 9, 19, 28 and 29 of Play 699 (11 in total), and World #947 passed the same amounts to Rich one step later. This closes the "prove interest is paid" item without adding a counter element.
 - Borrowing reaches Government: Government holds 2 or 3 at odd steps, which is the borrowed 2.
-- Open: the sum of the tracked pools (BASE, Depreciation, Investment, Spending, interest pool, World pools via #640 and #948) falls from 100 to about 89 by step 30, but 100 plus 60 borrowed should give 160. The Import pool #836 is not tracked yet. Either the 2 per step on #1506 does not reach circulation, or money is lost in a gate (rounding or weights). Not yet found.
+- Open: the sum of the tracked pools (BASE, Depreciation, Investment, Spending, interest pool, World pools via #640 and #948) falls from 100 to about 89 by step 30, but 100 plus 60 borrowed should give 160. The Import pool #836 is not tracked yet. Found and fixed later the same day, see Fix 5b above (Business gate `%` outputs summed to 95).
 
 Model changes: none. Rollback point noted before the planned edit: version history, today 4:15 AM group, latest save.
 
