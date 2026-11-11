@@ -2,6 +2,8 @@
 
 Fixes 4 and 5 applied 2026-11-10 (see below). Fixes 6 and 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
 
+Reading note: the diagram is a two-step cycle (out, then back). Judge each fix by the same-phase value over a Play, not by the last step alone. A swing every two steps is the design.
+
 Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 (debt and interest) applied 2026-11-10, Play 688, interest payment not yet proven. 6 and 7 open.
 
 ## Fix 4: return World money
@@ -18,7 +20,7 @@ Check: households settle above 0; World pools near 0 each step; INITIAL = sum of
 
 ## Fix 5: debt grows, interest follows debt
 
-Status: applied 2026-11-10, checked in Plays 686 to 694. New elements: Source #1501, flows #1506 and #1507, register #1508, state connections #1303 and #1304. The formula is `a*economy[2,2]/95` (`a` is the name of the input connection #1303). DEBT rose 95 to 155 in 30 steps. Interest is paid only after gate #1011 outputs #779, #823, #824, #1012 were changed to plain weights (no `%`): Play 691 (overwrite with `%`) interest 0, Play 693 (no overwrite) interest 10, Play 694 (overwrite, plain weights) interest 7. Lesson: a modify-value overwrite on a `%`-weights gate output blocks the flow; use plain weights. Open: BASE ends 44 against about 142 in Play 688 with strong oscillation (1 play only); interest paid counter not added; #1012 Lever toggle seen ON, prior state unknown; Interest weight canvas label reads 0 (stale labels). Steps per play is 30. Details in [CHANGELOG.md](../CHANGELOG.md).
+Status: applied 2026-11-10, checked in Plays 686 to 694. New elements: Source #1501, flows #1506 and #1507, register #1508, state connections #1303 and #1304. The formula is `a*economy[2,2]/95` (`a` is the name of the input connection #1303). DEBT rose 95 to 155 in 30 steps. Interest is paid only after gate #1011 outputs #779, #823, #824, #1012 were changed to plain weights (no `%`): Play 691 (overwrite with `%`) interest 0, Play 693 (no overwrite) interest 10, Play 694 (overwrite, plain weights) interest 7. Lesson: a modify-value overwrite on a `%`-weights gate output blocks the flow; use plain weights. Open: BASE ends 44 against about 142 in Play 688 (the oscillation itself is the two-step cycle; compare at the same phase; 1 play only); interest paid counter not added; #1012 Lever toggle seen ON, prior state unknown; Interest weight canvas label reads 0 (stale labels). Steps per play is 30. Details in [CHANGELOG.md](../CHANGELOG.md).
 
 Goal: government borrows, DEBT rises, interest scales with it. Adds new money, so growth. Risk: medium.
 
