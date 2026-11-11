@@ -2,30 +2,6 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
-## 2026-11-11 - Interest link restored as #1603 (Play 704)
-
-Problem: state connection #1304 (Interest weight #1508 to flow #824) was missing from the saved diagram, so interest did not follow debt in Plays 702 and 703.
-
-Changes (done in the editor, each checked in the saved diagram XML):
-- New state connection #1603: Interest weight #1508 to flow #824, type overwrite. It replaces #1304, which could not be recovered. Made with the State connection tool (Alt+C, click source, click target); a drag only moved nodes or created stray connections.
-- Stray connection #1602 (loose trigger, no ends) created by a handle drag was deleted.
-- Register #1508 was moved on the canvas (x 3006, y -1156 to x 2346, y -828) to clear flow #824. Values unchanged. Moving it back is optional.
-- Input connection #1303 (DEBT #710 to #1508, variable `a`) was repaired once after a handle drag cleared its formula: type Formula input, variable `a`. A loose extra label `a` remains on #1303.
-- Model has 147 cells.
-
-Result (Play 704, 30 steps, first to last value; Plays 702 and 703 in brackets):
-- Business #561: 70 to 47 (70 to 44).
-- BASE #813: 100 to 84 (100 to 82).
-- Spending #796: 0 to 36 (0 to 37).
-- Interest pool #851: 0 to 1, peak 6, 16 paid in total (0 to 3, 14 paid in total in Play 703).
-- Import #836: 0 to 8 (0 to 8). #729: 0 to 16 (0 to 15).
-- Interest weight register #1508 showed 4.56. No runtime errors.
-- Fix 6 holds: EXPORT #921 stays 10, real export pool #640 ends at 6.
-
-Not measured: Debt #709 and register #1508 are not charted, so "interest follows debt" is inferred from the interest pool responding. Total money (100 to 160) was measured in Play 701 and not re-measured the same way.
-
-Rollback points: history id 56771800 (after the #1303 repair), later ids up to 56771907.
-
 ## 2026-11-11 - Fix 6: exports independent of imports (Play 701 before, Play 702 after)
 
 Problem: the export amount depended on the import amount. Trade #1064 fed Business, and the EXPORT register #921 followed the World pool, so exports swung between 0 and 5 and changed whenever imports changed.
@@ -47,7 +23,7 @@ Result (30 steps each):
 - Money moved from the Business pool #561 (62 to 44) into Import #836 (2 to 8), Spending #796 (29 to 37), the interest pool #851 (0 to 3) and the World pools.
 - No runtime errors. The World reserve option (Option B in the plan) was not needed.
 
-Open at the time: connection #1304 (see Fix 5) was missing from the saved diagram, so interest was not following debt in Play 702. Restored as #1603, see the entry above.
+Open: connection #1304 (see Fix 5) is missing from the saved diagram, so interest is not following debt in Play 702. Restoring it is the next step. Model has 146 cells; 147 after the restore.
 
 Rollback point: Machinations version history, history id 56771627 (state after Fix 6, before the restore of #1304).
 
