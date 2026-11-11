@@ -14,6 +14,8 @@ Findings:
 - The swing damps because the Depreciation path (Business, Depreciation #729, Spending #796, Business) takes three steps while the main loop takes two. Money slowly spreads over both phases. Spending keeps a growing leftover at even steps (0 at step 0, 12 at step 12, about 20 at step 30) while BASE peaks fall.
 - Government stays at 13 to 20 and Rich at 8 to 16 for the whole run. They do not hoard money.
 - Checked and ruled out: flow #822 (Spending to Business) is already `all`; Source #1501 Borrowing trigger is already Auto.
+- Interest is paid: interest pool #851 received 4, 3, 1 and 3 at steps 9, 19, 28 and 29 of Play 699 (11 in total), and World #947 passed the same amounts to Rich one step later. This closes the "prove interest is paid" item without adding a counter element.
+- Borrowing reaches Government: Government holds 2 or 3 at odd steps, which is the borrowed 2.
 - Open: the sum of the tracked pools (BASE, Depreciation, Investment, Spending, interest pool, World pools via #640 and #948) falls from 100 to about 89 by step 30, but 100 plus 60 borrowed should give 160. The Import pool #836 is not tracked yet. Either the 2 per step on #1506 does not reach circulation, or money is lost in a gate (rounding or weights). Not yet found.
 
 Model changes: none. Rollback point noted before the planned edit: version history, today 4:15 AM group, latest save.
@@ -79,7 +81,7 @@ Rollback points: version history 56768102 (before Fix 5), and the save made just
 
 Open items:
 - BASE ends at 44 in Play 694 against about 142 in Play 688. Explained on 2026-11-11 (see the entry above): Play 688 was a stall.
-- The interest paid counter was not added.
+- The interest paid counter was not added. Not needed: interest paid is read per step from the chart (11 in Play 699).
 - Interest weight #1508 reads 0 on the canvas after a Play. Canvas labels go stale after a Play, so this is not trusted; the variable labels are.
 
 Open after this change:
