@@ -17,7 +17,7 @@ Result (Play 704, 30 steps, first to last value; Plays 702 and 703 in brackets):
 - Business #561: 70 to 47 (70 to 44).
 - BASE #813: 100 to 84 (100 to 82).
 - Spending #796: 0 to 36 (0 to 37).
-- Interest pool #851: 0 to 1, peak 6, 16 paid in total (0 to 3, 3 paid at the end of Play 703 and 4 earlier).
+- Interest pool #851: 0 to 1, peak 6, 16 paid in total (0 to 3, 14 paid in total in Play 703).
 - Import #836: 0 to 8 (0 to 8). #729: 0 to 16 (0 to 15).
 - Interest weight register #1508 showed 4.56. No runtime errors.
 - Fix 6 holds: EXPORT #921 stays 10, real export pool #640 ends at 6.
