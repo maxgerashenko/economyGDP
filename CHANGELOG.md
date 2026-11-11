@@ -2,6 +2,39 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
+## 2026-11-11 - Fix 6: exports independent of imports (Play 701 before, Play 702 after)
+
+Problem: the export amount depended on the import amount. Trade #1064 fed Business, and the EXPORT register #921 followed the World pool, so exports swung between 0 and 5 and changed whenever imports changed.
+
+Changes (done in the editor, each verified in the saved diagram XML):
+- Deleted connection #1064 (World/Trade to Business).
+- Connection #914 (Import #1201 to World #642): label changed to `1`.
+- World pool #642: action mode changed from push-all to push-any.
+- New connection #1601: World #642 to Business gate #496, formula `economy[2,7]` (export demand, value 10). The first draw ended on gate #954, which is downstream of #496; it was re-pointed to #496.
+- Connection #1301 (World #642 to Investment #790, added in Fix 4): formula changed from `all` to `economy[1,7]-economy[2,7]` (import share 15 minus export demand 10).
+- EXPORT register #921: formula changed to `economy[2,7]`.
+- Mistakes undone during the edit: a drag on the selected World pool re-attached an existing connection (Export (World) stopped reading the pool); undone and checked.
+
+Result (30 steps each):
+- EXPORT register #921 is constant 10 in Play 702 (0 to 5 in Play 701).
+- The real export pool #640 receives 2 to 7 per step. It is limited by the money the World pool holds, so the demand of 10 is a ceiling, not a guarantee.
+- Sum of the tracked pools goes 100 to 154 (158 in Play 701). The WORLD register ends at 6, so total money is about 160, which is the expected 100 plus 60 borrowed. No leak.
+- BASE falls from 102 to 82. This is not a leak, because BASE counts only Households and revenue.
+- Money moved from the Business pool #561 (62 to 44) into Import #836 (2 to 8), Spending #796 (29 to 37), the interest pool #851 (0 to 3) and the World pools.
+- No runtime errors. The World reserve option (Option B in the plan) was not needed.
+
+Open: connection #1304 (see Fix 5) is missing from the saved diagram, so interest is not following debt in Play 702. Restoring it is the next step. Model has 146 cells; 147 after the restore.
+
+Rollback point: Machinations version history, history id 56771627 (state after Fix 6, before the restore of #1304).
+
+## 2026-11-11 - Interest logic documented (no model change)
+
+Interest equals the base interest weight times debt over starting debt. Register #1508 `Interest weight` holds `a*economy[2,2]/95`. Here `a` is the DEBT register #710 (input connection #1303), `economy[2,2]` is the base weight from the sheet, and 95 is the starting value of the DEBT pool #709. The register output is written by state connection #1304 (type overwrite) onto the weight of flow #824, which carries the interest from Government gate #1011 into the interest pool #851.
+
+- At the start debt is 95, so the weight equals the old fixed `economy[2,2]`. As debt grows (Borrowing adds 2 per step) the weight grows in proportion.
+- The 95 is not a percent conversion. If the starting debt of the DEBT pool changes, change the divisor with it, or the weight no longer equals the base at step 0.
+- This is a model choice, not a central bank rate: the rate is fixed by the sheet and only the debt moves. A policy rate would be a separate input.
+
 ## 2026-11-11 - BASE check after Fix 5 (Play 696 to Play 699, no model change)
 
 Question: BASE #813 ended at 44 in Play 694 against about 142 in Play 688. Is the lower level real, and why?
