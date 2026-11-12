@@ -59,7 +59,7 @@ Goal: no dead elements, correct totals, readable layers. Risk: low; re-check Tot
 3. Stock pool #770, register #895, link #897: delete or keep.
 4. LOSS #891 formula: interest+import-export to interest+import.
 5. Register #640 `export` renamed `world`; update #950.
-6. Done 2026-11-12: moved the unnamed-layer elements into named layers; move #795, #802 from Stock to TOTAL.
+6. Done 2026-11-12: moved the unnamed-layer elements into named layers, and moved #795 and #802 from Stock to TOTAL (Play 711 matches Play 709).
 7. Rename diagram, rewrite description, fix INTERES, DEPT, GOVER MENT.
 
 Check: Total constant with no Source active; 0 runtime errors; hide each layer once, no orphan lines.

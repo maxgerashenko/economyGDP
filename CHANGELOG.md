@@ -34,7 +34,7 @@ Result (Play 705, 30 steps): Total reads 160 (100 plus 60 borrowed), as expected
 
 Not done:
 - The new links are still L-shaped (orthogonal routing). The editor has no control for the route style, so they could not be straightened. Redrawing them as straight links would fix it.
-- The 50 elements in the unnamed layer were not moved into named layers, and #795 and #802 are still in Stock. Layer moves are one drag per element and were not attempted.
+- The 50 elements in the unnamed layer and #795 and #802 were not moved in the first pass. They were moved later on 2026-11-12: the unnamed-layer elements into named layers, and #795 and #802 from Stock to TOTAL.
 - Charts for DEBT #710 and Interest weight #1508 ("Track in charts") were not switched on.
 - The hide-each-layer check was not run.
 
