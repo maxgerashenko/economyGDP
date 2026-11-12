@@ -2,6 +2,24 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
+## 2026-11-12 - Fix 7: charts and layers (Plays 706 to 708)
+
+Changes (done in the editor, no model logic changed):
+- DEBT #710 and the Interest weight register #1508 were added to the Play chart ("Track in charts").
+- All 50 elements of the unnamed default layer were moved into named layers, one element at a time with "Move to this layer". The default layer is now empty. Counts after the sort: TOTAL 28, Business 21, Base 35, Export/Import 18, Debt 14, World 9, Stock 7 (132 elements in total). The Export/Import assignment of links #1301 and #1302 was inferred from their endpoints.
+- Max's own renames (A, AA, AAA, "Dedrep", the four deleted labels) were kept.
+
+Results:
+- Plays 706 and 707 (30 steps): Debt rose from 95 to 155 and Interest weight from 3.4 to 5.48, so interest follows debt (ratio 0.0358 at the start, 0.0354 at the end).
+- Play 708 (30 steps, run after the layer sort): all 13 tracked nodes ran, no errors, BASE 84, the same as Play 707.
+
+Not done:
+- Total money (100 to 160) was not re-measured after the sort. The last measurement is Play 705.
+- The hide-each-layer check was not run.
+- The seven L-shaped links are still L-shaped. Redrawing them as straight links is not approved.
+
+Rollback: use the newest entry in the diagram's version history from before the layer moves.
+
 ## 2026-11-11 - Fix 7: cleanup (Play 705)
 
 Changes (done in the editor, each checked in the saved diagram XML):

@@ -50,7 +50,7 @@ Check: change import share in the sheet; export flow stays the same.
 
 ## Fix 7: cleanup
 
-Status: items 1 to 5 and 7 applied 2026-11-11, Play 705 shows Total 160 and no errors. Open: item 6 (layer moves), straightening the L-shaped new links (no editor control), charts for DEBT and Interest weight, hide-layer check. See [CHANGELOG.md](../CHANGELOG.md).
+Status: items 1 to 5 and 7 applied 2026-11-11, Play 705 shows Total 160 and no errors. Update 2026-11-12: item 6 (layer moves) done, the default layer is empty; DEBT and Interest weight are charted and interest follows debt (Plays 706 and 707); Play 708 after the sort ran without errors with BASE 84. Open: straightening the L-shaped new links (no editor control, not approved), the hide-layer check, and a fresh total money (100 to 160) measurement. See [CHANGELOG.md](../CHANGELOG.md).
 
 Goal: no dead elements, correct totals, readable layers. Risk: low; re-check Total after.
 
@@ -59,7 +59,7 @@ Goal: no dead elements, correct totals, readable layers. Risk: low; re-check Tot
 3. Stock pool #770, register #895, link #897: delete or keep.
 4. LOSS #891 formula: interest+import-export to interest+import.
 5. Register #640 `export` renamed `world`; update #950.
-6. Move the 46 unnamed-layer elements into named layers; move #795, #802 from Stock to TOTAL.
+6. Done 2026-11-12: moved the unnamed-layer elements into named layers; move #795, #802 from Stock to TOTAL.
 7. Rename diagram, rewrite description, fix INTERES, DEPT, GOVER MENT.
 
 Check: Total constant with no Source active; 0 runtime errors; hide each layer once, no orphan lines.
