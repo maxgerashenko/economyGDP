@@ -2,6 +2,22 @@
 
 Changes made to the Machinations diagram. Newest first. Element numbers are Machinations cell IDs.
 
+## 2026-11-12 - Fix 7: total money, layer check and DEPR rename (Plays 709 to 711)
+
+Changes (done in the editor, no model logic changed):
+- Max renamed Stock register #741 from DEBT to DEPR. Stock pool #729 is also named DEPR. Both hold the Depreciation flow; the real debt pool and register stay in the Debt layer as DEBT. The register formula uses the variable `depreciation`, so the rename breaks nothing.
+- Links #795 and #802 (the two GDP state links) were moved from Stock to TOTAL, one at a time with "Move to this layer". Counts after the move: TOTAL 30, Business 21, Base 35, Export/Import 18, Debt 14, World 9, Stock 5 (132 elements in total). This replaces the layer counts in the previous entry.
+
+Results (30 steps each, no errors):
+- Play 709: the Total register ends at 160 against 100 in INITIAL, so total money still rises from 100 to 160 (2 per step of borrowing). BASE 84, Interest 0, A 0.
+- Play 710 (after the rename) and Play 711 (after the move of #795 and #802) match Play 709.
+- Layer check: every element was checked against its layer in the Layers panel. The hide-each-layer check was not run, because hiding a layer is saved to the diagram as a change.
+
+Not done:
+- The seven L-shaped links are still L-shaped. Redrawing them as straight links is not approved.
+
+Rollback: use the diagram's version history from before the layer move.
+
 ## 2026-11-12 - Fix 7: charts and layers (Plays 706 to 708)
 
 Changes (done in the editor, no model logic changed):
@@ -14,8 +30,8 @@ Results:
 - Play 708 (30 steps, run after the layer sort): all 13 tracked nodes ran, no errors, BASE 84, the same as Play 707.
 
 Not done:
-- Total money (100 to 160) was not re-measured after the sort. The last measurement is Play 705.
-- The hide-each-layer check was not run.
+- Total money (100 to 160) was not re-measured after the sort in this entry. It was re-measured in Plays 709 to 711.
+- The hide-each-layer check was not run in this entry. See the Plays 709 to 711 entry.
 - The seven L-shaped links are still L-shaped. Redrawing them as straight links is not approved.
 
 Rollback: use the newest entry in the diagram's version history from before the layer moves.

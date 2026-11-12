@@ -1,10 +1,10 @@
 # Fix plan for root causes 4 to 7
 
-Fixes 4 and 5 applied 2026-11-10 (see below). Fixes 6 and 7 are not applied. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
+Fixes 4 to 7 are applied (see below); only straightening the L-shaped links is open. Order 4, 5, 6, 7. One Play of 30 steps after each. Rollback for all: undo or Machinations version history. Log each applied fix in [CHANGELOG.md](../CHANGELOG.md) and take a [snapshot](../snapshots/README.md) before and after.
 
 Reading note: the diagram is a two-step cycle (out, then back). Judge each fix by the same-phase value over a Play, not by the last step alone. A swing every two steps is the design.
 
-Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 (debt and interest) applied 2026-11-10, Play 688, interest payment not yet proven. 6 (exports independent of imports) applied 2026-11-11, Play 702 verified. The interest link (old #1304) was restored as #1603, Play 704 verified. 7 partly done 2026-11-11 (items 1 to 5, 7 and link colours done, Play 705 total 160; layer moves, straight links, charts and layer-hide check open).
+Tracker: 1 (import pool) fixed, verified. 2 (#936) and 3 (#1099) fixed. 4 (World money) fixed 2026-11-10, Play 678 verified. 5 (debt and interest) applied 2026-11-10, Play 688, interest payment not yet proven. 6 (exports independent of imports) applied 2026-11-11, Play 702 verified. The interest link (old #1304) was restored as #1603, Play 704 verified. 7 done 2026-11-12 except the L-shaped links (items 1 to 7, link colours, layer moves, charts and the total money check done; Play 711 total 160). Open: straightening the seven L-shaped links, which has no editor control and is not approved.
 
 ## Fix 4: return World money
 
@@ -50,7 +50,7 @@ Check: change import share in the sheet; export flow stays the same.
 
 ## Fix 7: cleanup
 
-Status: items 1 to 5 and 7 applied 2026-11-11, Play 705 shows Total 160 and no errors. Update 2026-11-12: item 6 (layer moves) done, the default layer is empty; DEBT and Interest weight are charted and interest follows debt (Plays 706 and 707); Play 708 after the sort ran without errors with BASE 84. Open: straightening the L-shaped new links (no editor control, not approved), the hide-layer check, and a fresh total money (100 to 160) measurement. See [CHANGELOG.md](../CHANGELOG.md).
+Status: items 1 to 5 and 7 applied 2026-11-11, Play 705 shows Total 160 and no errors. Update 2026-11-12: item 6 (layer moves) done, the default layer is empty; DEBT and Interest weight are charted and interest follows debt (Plays 706 and 707); Play 708 after the sort ran without errors with BASE 84. Total money was re-measured at 160 in Plays 709 to 711 with no errors. The hide-each-layer check was replaced by checking every element against its layer in the Layers panel, because hiding a layer is saved as a change to the diagram. The two Stock elements named DEBT are now #729 and #741 (renamed DEPR by Max). Open: straightening the L-shaped new links (no editor control, not approved). See [CHANGELOG.md](../CHANGELOG.md).
 
 Goal: no dead elements, correct totals, readable layers. Risk: low; re-check Total after.
 
